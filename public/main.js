@@ -1,4 +1,4 @@
-const socket = io();
+const socket = io("http://localhost:4000/",{});
 
 const clientsTotal = document.getElementById('clients-total');
 
@@ -7,7 +7,7 @@ const nameInput = document.getElementById('name-input');
 const messageForm = document.getElementById('message-form');
 const messageInput = document.getElementById('message-input');
 
-const messageTone = new Audio('/public/message-tone.mp3')
+const messageTone = new Audio('/message-tone.mp3');
 
 messageForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -15,7 +15,9 @@ messageForm.addEventListener('submit', (e) => {
 });
 
 socket.on('clients-total',(data) => {
-    clientsTotal.innerHTML =`Total client : ${data}`;
+  console.log('Received clients total:', data);
+  
+    clientsTotal.textContent =`Total client : ${data}`;
 });
 
 function sendMessage() {

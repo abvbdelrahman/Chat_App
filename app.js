@@ -15,13 +15,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 let socketConnected = new Set();
 io.on('connection',onConnected);
 
-function onConnected(socket){
+function onConnected(socket){    
     socketConnected.add(socket);
 
     io.emit('clients-total',socketConnected.size);
 
     socket.on('disconnect', () => {
-        socketConnected.delete(socket.id);
+        socketConnected.delete(socket);
         io.emit('clients-total',socketConnected.size);
 
     });
